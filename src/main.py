@@ -1,7 +1,13 @@
-from crawl_holidays import get_holidays
+from extract import events_as_json, holidays_as_json
+from functions import get_events, get_holidays
 import json
 
 
 if __name__ == "__main__":
-    with open('output/holidays.json', 'w') as output_file:
-        json.dump(get_holidays(from_year=1391, to_year=1411), output_file)
+    # extract holidays and events as a json file
+    holidays_as_json(1400, 1401)
+    events_as_json(1400, 1401)
+
+    # get holidays and events as python dictionary
+    holidays = get_holidays(1400, 1401)
+    events = get_events(1400, 1401)
