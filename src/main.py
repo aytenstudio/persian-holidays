@@ -1,6 +1,5 @@
 from extract import events_as_json, holidays_as_json
 from functions import get_events, get_holidays
-import json
 
 
 if __name__ == "__main__":
