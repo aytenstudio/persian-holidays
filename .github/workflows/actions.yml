@@ -31,4 +31,4 @@ jobs:
         
     - name: run main file
       run: |
-        python ./src/main.py 
+        python ./src/main.py --From $FROM_YEAR --To $TO_YEAR
