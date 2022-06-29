@@ -17,8 +17,6 @@ def get_holidays(from_year: int, to_year: int):
     driver = __setup_driver()
     driver.get('https://www.time.ir/fa/eventyear-%D8%AA%D9%82%D9%88%DB%8C%D9%85-%D8%B3%D8%A7%D9%84%DB%8C%D8%A7%D9%86%D9%87')
     
-    global __month_dict
-
     holidays_dict = {}
     for year in range(from_year, to_year+1):
         input_field = driver.find_element(by=By.ID, value="ctl00_cphTop_Sampa_Web_View_EventUI_EventYearCalendar10cphTop_3417_txtYear")
@@ -26,16 +24,21 @@ def get_holidays(from_year: int, to_year: int):
         input_field.send_keys(year)
         driver.find_element(by=By.ID, value="ctl00_cphTop_Sampa_Web_View_EventUI_EventYearCalendar10cphTop_3417_btnGo").click()
 
-        holiday_events = driver.find_elements(by=By.CLASS_NAME, value="eventHoliday ")
-
         holidays_dict[str(year)] = {}
-        for holiday in holiday_events:
-            day, month_title, _ = str(holiday.text).split(maxsplit=2)
-            if __month_dict[month_title] not in holidays_dict[str(year)]:
-                holidays_dict[str(year)][__month_dict[month_title]] = []
-            
-            holidays_dict[str(year)][__month_dict[month_title]].append(str(int(day)))
+        current_month = 1
+        calender = driver.find_elements(by=By.CLASS_NAME, value="dayList")
+        for month in calender:
+            holidays = month.find_elements(by=By.CLASS_NAME, value="holiday ")
+            for holiday in holidays:
+                parent = holiday.find_element(by=By.XPATH, value="..")
+                if parent.get_attribute('class') == "spacer disabled":
+                    continue
+                if str(current_month) not in holidays_dict[str(year)]:
+                    holidays_dict[str(year)][str(current_month)] = []
 
+                day = holiday.text.split()[0]
+                holidays_dict[str(year)][str(current_month)].append(str(int(day)))
+            current_month += 1
     driver.close()
     return holidays_dict
 

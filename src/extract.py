@@ -5,7 +5,7 @@ import os
 
 def holidays_as_json(from_year: int, to_year: int) -> None:
     os.makedirs("./output", exist_ok=True)
-    file_path = f"output/holidays<{from_year}-{to_year}>.json"
+    file_path = f"output/holidays{from_year}-{to_year}.json"
 
     if not os.path.exists(file_path):
         with open(file_path, "w") as output_file:
@@ -15,7 +15,7 @@ def holidays_as_json(from_year: int, to_year: int) -> None:
 
 def events_as_json(from_year: int, to_year: int) -> None:
     os.makedirs("./output", exist_ok=True)
-    file_path = f"output/events<{from_year}-{to_year}>.json"
+    file_path = f"output/events{from_year}-{to_year}.json"
 
     if not os.path.exists(file_path):
         with open(file_path, "w") as output_file:
