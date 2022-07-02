@@ -31,6 +31,13 @@ jobs:
         pip install flake8
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
-    - name: run main file
+    - name: Run main file
       run: |
         python ./src/main.py --From $FROM_YEAR --To $TO_YEAR
+
+    - name:  Archive output artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: output-artifact
+        path: ./output/*.json
+        retention-days: 10
