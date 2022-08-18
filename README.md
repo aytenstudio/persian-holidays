@@ -24,7 +24,7 @@ in order to extract holidays and events as JSON files, run the script as the ins
 
         
 
-            python ./src/main.py --From <from-year> --To <to-year></to-year>
+            python ./src/main.py --From <from-year> --To <to-year>
 
 
 
